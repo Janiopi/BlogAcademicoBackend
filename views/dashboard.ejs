@@ -13,9 +13,22 @@
 <body>
     <h1>Inicio</h1>
 
-    <a href="/users/logout">Cerrar sesión</a>
+    <ul>
+        <% if(typeof errors != 'undefined'){ %>
+            <% errors.forEach(error => { %>
+                <li><%= error.message %></li>
+        <% }) %> <% } %>
+    </ul>
+
+
 
     <h4>Bienvenido <%= user %></h4>
-
+    <ul>
+        <a href="/users/changePassword">Cambiar de contraseña</a>
+    </ul>
+    <ul>
+        <a href="/users/logout">Cerrar sesión</a>
+    </ul>
+    
 </body>
 </html>

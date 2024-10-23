@@ -36,7 +36,8 @@ app.use(flash());
 
 //Los flash messages estarán disponibles en todas las views
 app.use((req,res,next)=>{
-    res.locals.messages = req.flash();
+      res.locals.success_msg = req.flash('success');
+  res.locals.error = req.flash('error');
     next();
 });
 
@@ -84,6 +85,11 @@ app.get('/users/logout',(req,res,next)=>{
     
 })
 
+app.get('/users/changePassword',checkAuthenticated,(req,res)=>{
+    res.render("changePassword");
+})
+
+
 app.post('/users/register',async(req,res)=>{
     let {name,email,password,password2} = req.body;
     console.log({
@@ -123,7 +129,7 @@ app.post('/users/register',async(req,res)=>{
             
             if(results.rows.length>0){
                 errors.push({message: 'Este email ya se encuentra registrado!'})
-                res.render('register',errors)
+                res.render('register',{errors})
             }else{
                 pool.query(
                     `INSERT INTO users (name,email,password) VALUES ($1,$2,$3) RETURNING id,password`,[name,email,hashedPassword],(err,results)=>{
@@ -145,12 +151,73 @@ app.post('/users/register',async(req,res)=>{
     }
 })
 
+app.post('/users/changePassword',checkAuthenticated,async(req,res)=>{
+    let {currentPassword,newPassword,newPassword2} = req.body;
+    let errors = []
+
+    console.log({
+        currentPassword,
+        newPassword,
+        newPassword2
+    });
+
+    
+
+    if(!currentPassword || !newPassword || !newPassword2 ){
+        errors.push({message: 'Campos incompletos!'})
+        console.log('Error')
+    }
+
+    if(newPassword.length < 6 ){
+        errors.push({message: 'Contraseña débil. Su longitud debe ser mayor a 5'})
+        console.log('Error')
+    }
+
+    if(newPassword != newPassword2){
+        errors.push({message: 'Contraseñas no coinciden'})
+        console.log('Error')
+    }
+
+    if(errors.length>0){
+        return res.render('changePassword',{errors})
+    }
+    
+    try{
+        const user = await pool.query('SELECT * FROM users where id=$1',[req.user.id]);
+
+        if(user.rows.length > 0){
+            const isMatch = await bcrypt.compare(currentPassword,user.rows[0].password)
+
+            if(!isMatch){
+                errors.push({message: 'Contraseña actual incorrecta'});
+                return res.render('changePassword',{errors})
+            }
+            let newhashedPassword = await bcrypt.hash(newPassword,10) 
+
+            await pool.query('UPDATE users SET password=$1 WHERE id=$2',[newhashedPassword,req.user.id])
+
+            req.flash('success_msg','La contraseña se actualizo con exito')
+            res.redirect('/users/dashboard')
+        }else{
+            req.flash('error_msg','Usuario no encontrado')
+            res.redirect('/users/login')
+        }
+  
+    }catch(err){
+        console.error('Error al cambiar la contraseña',err);
+        req.flash('error_msg','Something went wrong')
+        res.redirect('/users/changePassword')
+    }
+
+})
+
 
 app.post('/users/login',passport.authenticate('local',{
     successRedirect: '/users/dashboard',
     failureRedirect: '/users/login',
     failureFlash: true,
-    successFlash: 'Hello there!'
+    successFlash: 'Autenticación correcta'
+    
 
 }))
 

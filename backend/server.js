@@ -4,7 +4,7 @@ const passport = require('passport')
 const flash = require('express-flash')
 
 const userRoutes = require('./routes/userRoutes.js')
-
+const questionRoutes = require('./routes/questionRoutes.js')
 
 
 //Set up de passport
@@ -52,31 +52,17 @@ app.use((req,res,next)=>{
 
 
 
-
+app.use(express.json());
 
 //Rutas
 
 //User routes
 app.use('/users',userRoutes);
-app.get('/faq',(req,res)=>{
-    
-    
-
-})
 
 
-app.get('/contact',(req,res)=>{
+//Question routes
+app.use('/questions',questionRoutes);
 
-})
-
-
-app.get('/questions',(req,res)=>{
-
-})
-
-app.get('/subjects',(req,res)=>{
-    
-})
 
 
 app.get('/',(req,res)=>{

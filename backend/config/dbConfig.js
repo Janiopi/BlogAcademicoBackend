@@ -12,3 +12,5 @@ const pool = new Pool({
 });                                                                                   //Dev mode usará connectionString
 
 module.exports = {pool}
+
+

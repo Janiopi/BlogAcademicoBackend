@@ -16,11 +16,6 @@ const findQuestionById= async(id)=>{
 }
 
 
-const findAnswersById= async(id)=>{
-    
-    const result = await pool.query('SELECT * FROM answers where id = $1',[id]);
-    return result.rows[0];
-}
 
 
 const newQuestion = async ({ user_id, title, description, tags }) => {
@@ -31,12 +26,48 @@ const newQuestion = async ({ user_id, title, description, tags }) => {
     return result.rows[0]; 
 };
 
+const updateQuestionTitle = async ({id,new_title})=>{
+    const result = await pool.query(
+      'UPDATE questions SET title = $2 WHERE id=$1',
+      [id,new_title]
+    )
+    return result.rows[0]; 
+};
+
+const updateQuestionDesc = async ({id,new_desc})=>{
+  const result = await pool.query(
+    'UPDATE questions SET description = $2 WHERE id=$1',
+    [id,new_desc]
+  )
+  return result.rows[0]; 
+};
+
+const updateQuestionTags = async ({id,new_tags})=>{
+  const result = await pool.query(
+    'UPDATE questions SET tags = $2 WHERE id=$1',
+    [id,new_tags]
+  )
+  return result.rows[0]; 
+};
+
+
+
+
+const deleteQuestion = async ({ id }) => {
+  const result = await pool.query(
+    'DELETE FROM questions WHERE id = $1',[id]);
+  return result.rows[0]; 
+};
+
+
 
 module.exports = {
   allQuestions,
   findQuestionById,
-  findAnswersById,
-    newQuestion,
-  
+   newQuestion,
+  deleteQuestion,
+  updateQuestionTitle,
+  updateQuestionDesc,
+  updateQuestionTags,
   
 };

@@ -1,7 +1,10 @@
 // Los controladores se encargan de manejar las solicitudes HTTP
 
 
-const { allQuestions, findQuestionById, findAnswersById, newQuestion } = require('../models/questionModel.js');
+const { allQuestions, findQuestionById, newQuestion,updateQuestionTitle,updateQuestionDesc,updateQuestionTags } = require('../models/questionModel.js');
+const {findAnswersById} = require('../models/answersModel.js')
+const {vote} = require('../models/votesModel.js')
+
 
 
 const showAllQuestions = async(req,res)=>{
@@ -15,7 +18,6 @@ const showAllQuestions = async(req,res)=>{
     }
   
 }
-
 
 
 const questionById = async (req, res) => {
@@ -63,6 +65,61 @@ const createNewQuestion = async(req,res)=>{
 
 }
 
-module.exports = {showAllQuestions,questionById,createNewQuestion};
+
+
+const updateTitleQuestion = async(req,res)=>{
+    try{
+        const {id, new_title}=req.body;
+
+        if(!id||!new_title){
+            return res.status(400).json({error:'Missing required fields'});
+        }
+        const result = await updateQuestionTitle({id,new_title});
+        res.status(201).json(result);
+       
+    }catch(err){
+        console.error(err.message)
+        res.status(500).send('Server error')
+    }
+
+
+}
+const updateDescQuestion = async(req,res)=>{
+    try{
+        const {id, new_desc}=req.body;
+
+        if(!id||!new_desc){
+            return res.status(400).json({error:'Missing required fields'});
+        }
+        const result = await updateQuestionDesc({id,new_desc});
+        res.status(201).json(result);
+       
+    }catch(err){
+        console.error(err.message)
+        res.status(500).send('Server error')
+    }
+
+
+}
+const updateTagsQuestion = async(req,res)=>{
+    try{
+        const {id, new_tags}=req.body;
+
+        if(!id||!new_tags){
+            return res.status(400).json({error:'Missing required fields'});
+        }
+        const result = await updateQuestionTags({id,new_tags});
+        res.status(201).json(result);
+       
+    }catch(err){
+        console.error(err.message)
+        res.status(500).send('Server error')
+    }
+
+
+}
+
+
+module.exports = {showAllQuestions,questionById,createNewQuestion,updateTitleQuestion,updateTagsQuestion,updateDescQuestion};
 
 

@@ -6,6 +6,7 @@ const flash = require('express-flash')
 const userRoutes = require('./routes/userRoutes.js')
 const questionRoutes = require('./routes/questionRoutes.js')
 const answersRoutes = require('./routes/answersRoutes.js')
+const commentsRoutes = require('./routes/commentsRoutes.js')
 
 //Set up de passport
 const initializePassport = require('./config/passportConfig.js')
@@ -66,6 +67,8 @@ app.use('/questions',questionRoutes);
 //Answers routes
 app.use('/answers',answersRoutes);
 
+//Comments routes
+app.use('/comments',commentsRoutes)
 
 
 app.get('/',(req,res)=>{

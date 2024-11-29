@@ -1,17 +1,21 @@
 const express = require('express')
 const router = express.Router();
-const {showAllQuestions,questionById,createNewQuestion,updateTitleQuestion,updateDescQuestion,updateTagsQuestion} = require('../controllers/questionController.js')
+const {showAllQuestions,questionById,createNewQuestion,updateTitleQuestion,updateDescQuestion,updateTagsQuestion,deleteQuestionn} = require('../controllers/questionController.js')
 const {checkAuthenticated,checkNotAuthenticated} = require('../middleware/authMiddleware.js') 
 
-router.get('/all',showAllQuestions)
 
-
-router.get('/:id',questionById)
-
+//Create
 router.post('/new',createNewQuestion)
-
+//Read
+router.get('/all',showAllQuestions)
+router.get('/:id',questionById)
+//Update
 router.put('/updateTitle',updateTitleQuestion)
 router.put('/updateDesc',updateDescQuestion)
 router.put('/updateTags',updateTagsQuestion)
+//Delete
+router.delete('/delete',deleteQuestionn)
+
+
 
 module.exports = router;

@@ -1,25 +1,25 @@
 // Los controladores se encargan de manejar las solicitudes HTTP
 
 const { json } = require('express');
-const {newAnswer,findAnswersById,updateQuestionContent,deleteAnswer} = require('../models/answersModel.js');
+const {newComment,findCommentById,updateCommentContent,deleteComment} = require('../models/commentsModel.js');
 
 //Create
 
-const createNewAnswer = async(req,res)=>{
+const createNewComment = async(req,res)=>{
    
    
     try{
-        const{ question_id, user_id, content} = req.body;
+        const{ answer_id, user_id, content} = req.body;
         console.log(req.body)
 
-        if( !question_id||!user_id||!content){
+        if( !answer_id||!user_id||!content){
             return res.status(400).json({error: 'Missing fields'});
 
         }
 
 
-        const answer = await newAnswer({question_id, user_id, content});
-        res.status(201).json(answer)
+        const comment = await newComment({answer_id, user_id, content});
+        res.status(201).json(comment)
     }catch(err){
         console.error(err.message)
         res.status(500).send('Server error')
@@ -31,9 +31,9 @@ const createNewAnswer = async(req,res)=>{
 
 //Read
 
-const showAnswerById = async (req, res) => {
-    const { id } = req.body;
-  
+const showCommentById = async (req, res) => {
+    const { id } = req.params;
+    
     
     if (!id) {
       return res.status(400).json({ error: 'Invalid answer ID' });
@@ -41,7 +41,7 @@ const showAnswerById = async (req, res) => {
   
     try {
       
-      const answers = await findAnswersById(id);
+      const answers = await findCommentById(id);
       res.status(200).json({ answers });
     } catch (err) {
       console.error(err.message);
@@ -51,14 +51,14 @@ const showAnswerById = async (req, res) => {
 
 //Update
 
-const updateContentQuestion = async (req,res) =>{
+const updateContentComment = async (req,res) =>{
     const {id,new_content} = req.body;
 
     if(!id||!new_content){
         return res.status(400).json({error:'Invalid question ID'});
     }
     try{
-        const result = await updateQuestionContent({id,new_content});
+        const result = await updateCommentContent({id,new_content});
         res.status(201).json(result);
     }catch{
         console.error(err.message)
@@ -68,13 +68,13 @@ const updateContentQuestion = async (req,res) =>{
 }
 
 //Delete
-const deleteAnswerr = async(req,res)=>{
+const deleteCommentt = async(req,res)=>{
     try{
         const {id} = req.body;
         if(!id){
             return res.status(400).json({error:'Missing required fields'});
         }
-        const result = await deleteAnswer({id});
+        const result = await deleteComment({id});
         res.status(201).json(result);
 
     }catch(err){
@@ -83,7 +83,7 @@ const deleteAnswerr = async(req,res)=>{
     }
 }
 
-module.exports = {createNewAnswer,showAnswerById,updateContentQuestion,deleteAnswerr};
+module.exports = {createNewComment,showCommentById,updateContentComment,deleteCommentt};
 
 
 

@@ -2,6 +2,18 @@
 
 const {pool} = require('../config/dbConfig.js')
 
+//Create
+
+const newQuestion = async ({ user_id, title, description, tags }) => {
+  const result = await pool.query(
+    'INSERT INTO questions (user_id, title, description, tags) VALUES ($1, $2, $3, $4) RETURNING *',
+    [user_id, title, description, tags]
+  );
+  return result.rows[0]; 
+};
+
+//Read
+
 const allQuestions = async()=>{
     const result = await pool.query('SELECT * FROM questions ORDER BY created_at DESC')
     return result.rows;
@@ -16,15 +28,7 @@ const findQuestionById= async(id)=>{
 }
 
 
-
-
-const newQuestion = async ({ user_id, title, description, tags }) => {
-    const result = await pool.query(
-      'INSERT INTO questions (user_id, title, description, tags) VALUES ($1, $2, $3, $4) RETURNING *',
-      [user_id, title, description, tags]
-    );
-    return result.rows[0]; 
-};
+//Update
 
 const updateQuestionTitle = async ({id,new_title})=>{
     const result = await pool.query(
@@ -51,7 +55,7 @@ const updateQuestionTags = async ({id,new_tags})=>{
 };
 
 
-
+//Delete
 
 const deleteQuestion = async ({ id }) => {
   const result = await pool.query(

@@ -1,12 +1,30 @@
 // Los controladores se encargan de manejar las solicitudes HTTP
 
 
-const { allQuestions, findQuestionById, newQuestion,updateQuestionTitle,updateQuestionDesc,updateQuestionTags } = require('../models/questionModel.js');
+const { allQuestions, findQuestionById, newQuestion,updateQuestionTitle,updateQuestionDesc,updateQuestionTags, deleteQuestion} = require('../models/questionModel.js');
 const {findAnswersById} = require('../models/answersModel.js')
 const {vote} = require('../models/votesModel.js')
 
+//Create
 
+const createNewQuestion = async(req,res)=>{
 
+    try{
+        const { user_id, title, description, tags } = req.body;
+
+        if (!user_id || !title || !description) {
+            return res.status(400).json({ error: 'Missing required fields' });
+         }
+
+        const result = await newQuestion({ user_id, title, description, tags });
+        res.status(201).json(result);        
+    }catch(err){
+        console.error(err.message)
+        res.status(500).send('Server error')
+    }
+
+}
+// Read
 const showAllQuestions = async(req,res)=>{
     
     try{
@@ -21,7 +39,7 @@ const showAllQuestions = async(req,res)=>{
 
 
 const questionById = async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.body;
   
     
     if (!id || isNaN(id) || parseInt(id) <= 0) {
@@ -44,28 +62,10 @@ const questionById = async (req, res) => {
       console.error(err.message);
       res.status(500).send('Server Error');
     }
-  };
+};
   
 
-const createNewQuestion = async(req,res)=>{
-
-    try{
-        const { user_id, title, description, tags } = req.body;
-
-        if (!user_id || !title || !description) {
-            return res.status(400).json({ error: 'Missing required fields' });
-         }
-
-        const result = await newQuestion({ user_id, title, description, tags });
-        res.status(201).json(result);        
-    }catch(err){
-        console.error(err.message)
-        res.status(500).send('Server error')
-    }
-
-}
-
-
+//Update
 
 const updateTitleQuestion = async(req,res)=>{
     try{
@@ -119,7 +119,22 @@ const updateTagsQuestion = async(req,res)=>{
 
 }
 
+//Delete
+const deleteQuestionn = async(req,res)=>{
+    try{
+        const {id} = req.body;
+        if(!id){
+            return res.status(400).json({error:'Missing required fields'});
+        }
+        const result = await deleteQuestion({id});
+        res.status(201).json(result);
 
-module.exports = {showAllQuestions,questionById,createNewQuestion,updateTitleQuestion,updateTagsQuestion,updateDescQuestion};
+    }catch(err){
+        console.error(err.message)
+        res.status(500).send('Server error')
+    }
+}
+
+module.exports = {showAllQuestions,questionById,createNewQuestion,updateTitleQuestion,updateTagsQuestion,updateDescQuestion,deleteQuestionn};
 
 

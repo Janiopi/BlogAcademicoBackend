@@ -1,4 +1,57 @@
 # Blog Academico Backend #
+
+## **Estructura del Proyecto**
+
+```
+.
+├───config
+│       dbConfig.js              # Configuración de la conexión a la BD
+│       passportConfig.js        # Configuración de passport(utilizado para la autenticación)
+│
+├───controllers
+│       userController.js         # Los controladores se encargan de manejar las solicitudes HTTP
+│       questionController.js        
+│		...
+|
+│───middleware
+│        authMiddleware.js   # Funciones para verificar si un usuario se encuentra o no autenticado
+|        
+├───models
+│       userModel.js        # Los models interactuan directamente con la BD mediante querys
+│       questionModel.js             
+│		...
+|───routes
+|        userRoutes.js	     # Rutas/endpoints del backend
+|        questionRoutes.js 
+|           
+└─── server.js              # Main file     
+```
+
+
+
+## Inicializar el proyecto ##
+- *Clonar el repositorio*
+ ```bash
+     git clone  url_repo
+```
+- *Colocarse dentro de la carpeta backend*
+```bash
+	cd backend
+```
+- *Inicializar el servidor(Se ejecutará en el puerto 4000)
+```bash
+	npm run dev 
+```
+   
+- *En caso de no tener npm instalado*
+```bash
+	sudo apt install npm
+```
+-  *Instalar algunas librerías* 
+```bash 
+	npm install express passport cors bcrypt
+```
+
 ## Conceptos clave ##
 - *API*
 	- API (Interfaz de Programación de Aplicaciones, o Application Programming Interface en inglés) es un conjunto de  protocolos que permite a diferentes programas comunicarse entre sí. 
@@ -27,15 +80,16 @@
     - Sesiones y Tokens: Passport maneja sesiones de usuario con cookies en aplicaciones tradicionales o usa tokens (como JWT).
 		
 	- Serializar y Deserializar: Passport necesita funciones para serializar (guardar) y deserializar (recuperar) al usuario en una sesión.
-    
+
+- **CORS**: Cross-Origin Resource Sharing. Es un mecanismo de seguridad que permite a los navegadores web controlar las solicitudes HTTP que se realizan desde JavaScript, y que provienen de un origen distinto al del servidor.    
 	
-![2.png](_resources/2.png)
+![2.png](Screenshots/2.png)
 
 
 - Middleware en rutas para protegerlas.
 
-![3.png](_resources/3.png)
-![4.png](_resources/4.png)
+![3.png](./Screenshots/3.png)
+![4.png](./Screenshots/4.png)
 
 
 - **Bcrypt**:Biblioteca de hashing que se usa para cifrar contraseñas de manera segura antes de guardarlas en la base de datos. Sus principales beneficios son:
@@ -46,7 +100,7 @@
 
 
 
-![5.png](_resources/5.png)
+![5.png](Screenshots/5.png)
 
 
 
@@ -56,8 +110,63 @@
 
 - **EJS** (Embedded JavaScript): Motor de plantillas para Node.js que permite insertar JavaScript en archivos HTML. Con EJS, puedes generar páginas HTML dinámicas de manera sencilla usando variables y estructuras de control de JavaScript en el servidor.
 
+![6.png](Screenshots/6.png)
+
+## Funcionamiento ##
+
+# Login/Register #
+Sistema básico de registro,logeo. Cuando un usuario se registra correctamente, hashea su contraseña y lo almacena en la base de datos. (Verificación local). Se planea implementar una opción para iniciar sesión mediante cuenta de un servicio tercero como Google.
+
+![Registro.png](Screenshots/Registro.png)
+
+
+![image.png](Screenshots/image.png)
+
+![alt text](Screenshots/image-1.png)
 
 
 
-![6.png](_resources/6.png)
+# Cursos #
+El usuario podrá navegar por todo un catálogo de cursos con sus respectivos cursos (Falta implementar, todavía no definimos exactamente que datos debe contener la tabla cursos)
+
+
+# Preguntas #
+El usuario podrá acceder a un foro donde podrá realizar preguntas, responder preguntas e incluso calificar respuestas (Similar a StackOverflow)
+
+Se realizan operaciones CRUD
+Create
+![alt text](Screenshots/image-2.png)
+
+![alt text](Screenshots/image-3.png)
+
+![alt text](Screenshots/image-4.png)
+
+
+Read
+
+![alt text](Screenshots/image-7.png)
+
+Cabe resaltar que para la ruta questions/:id, brindamos el id mediante parámetro(en la misma url), mientras que en las otras operaciones brindamos los datos mediante un .json(body request)
+![alt text](Screenshots/image-8.png)
+
+
+Update
+
+![alt text](Screenshots/image-9.png)
+
+![alt text](Screenshots/image-10.png)
+
+
+
+Delete
+![alt text](Screenshots/image-5.png)
+
+Cuando se elimina una pregunta, también se eliminan las respuestas	
+![alt text](Screenshots/image-6.png)
+
+
+
+
+
+
 

@@ -9,7 +9,7 @@ const newAnswer = async ({ question_id, user_id, content }) => {
     'INSERT INTO answers (question_id, user_id, content) VALUES ($1, $2, $3) RETURNING *',
     [question_id, user_id, content]
   );
-  
+  return result.rows[0]
 };
 
 //Read

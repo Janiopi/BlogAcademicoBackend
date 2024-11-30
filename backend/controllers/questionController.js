@@ -39,7 +39,7 @@ const showAllQuestions = async(req,res)=>{
 
 
 const questionById = async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
   
     
     if (!id || isNaN(id) || parseInt(id) <= 0) {

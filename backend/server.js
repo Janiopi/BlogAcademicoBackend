@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const passport = require('passport')
 const flash = require('express-flash')
+const cors = require('cors')
 
 const userRoutes = require('./routes/userRoutes.js')
 const questionRoutes = require('./routes/questionRoutes.js')
@@ -28,6 +29,14 @@ app.set('view engine','ejs');
 //Middleware que parsea la información del URL-encoded data enviada en el cuerpo de un HTTP request
 // extended: false  simple key-values 
 app.use(express.urlencoded({extended: false}))
+
+app.use(cors ({
+    origin: 'http://localhost:5173',  //React URL
+    credentials: true,
+
+}));
+
+
 
 //Middleware para administrar sesiones
 app.use(session({

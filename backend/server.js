@@ -8,6 +8,9 @@ const userRoutes = require('./routes/userRoutes.js')
 const questionRoutes = require('./routes/questionRoutes.js')
 const answersRoutes = require('./routes/answersRoutes.js')
 const commentsRoutes = require('./routes/commentsRoutes.js')
+const courseRoutes = require('./routes/courseRoutes.js')
+const resourcesRoutes = require('./routes/resourcesRoutes.js')
+
 
 //Set up de passport
 const initializePassport = require('./config/passportConfig.js')
@@ -79,6 +82,11 @@ app.use('/answers',answersRoutes);
 //Comments routes
 app.use('/comments',commentsRoutes)
 
+//Courses routes
+app.use('/courses',courseRoutes)
+
+//Resource routes
+app.use('/resources',resourcesRoutes);
 
 app.get('/',(req,res)=>{
     res.render("index");

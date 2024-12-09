@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport')
 const {registerUser,loginUser} = require('../controllers/userController.js')
 const {checkAuthenticated,checkNotAuthenticated} = require('../middleware/authMiddleware.js')
 
@@ -11,11 +12,9 @@ router.get('/login',checkNotAuthenticated,(req,res)=>res.render('login'));
 router.post('/login',loginUser);
 
 router.get('/dashboard', checkAuthenticated, (req, res) => {
-    if (req.user && req.user.name) {
-      return res.json({ name: req.user.name });
-    } else {
-      return res.status(400).json({ error: 'User is not authenticated or name is missing' });
-    }
+  
+  res.render('dashboard',{user:req.user.name});
+ 
   });
   
 
@@ -33,6 +32,19 @@ router.get('/logout',(req,res,next)=>{
 router.get('/changePassword',checkAuthenticated,(req,res)=>{
     res.render("changePassword");
 })
+
+
+router.get('/authGoogle',passport.authenticate('google',{scope:['profile','email']}));
+
+router.get(
+  '/authGoogle/callback',
+  passport.authenticate('google',{failureRedirect: '/login'}),
+  (req,res)=>{
+    console.log(req.user)
+    res.render('dashboard',{user:req.user.name});
+  }
+
+);
 
 
 module.exports = router;

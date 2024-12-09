@@ -1,8 +1,12 @@
 const express = require('express')
 const app = express()
 const passport = require('passport')
+require('./config/passport/localStrategy.js')(passport)
+require('./config/passport/googleStrategy.js')(passport)
+
 const flash = require('express-flash')
 const cors = require('cors')
+
 
 const userRoutes = require('./routes/userRoutes.js')
 const questionRoutes = require('./routes/questionRoutes.js')
@@ -13,9 +17,6 @@ const resourcesRoutes = require('./routes/resourcesRoutes.js')
 
 
 //Set up de passport
-const initializePassport = require('./config/passportConfig.js')
-initializePassport(passport)
-
 
 
 const {pool} = require('./config/dbConfig.js')
@@ -33,6 +34,7 @@ app.set('view engine','ejs');
 // extended: false  simple key-values 
 app.use(express.urlencoded({extended: false}))
 
+//Cross origin  resource sharing
 app.use(cors ({
     origin: 'http://localhost:5173',  //React URL
     credentials: true,

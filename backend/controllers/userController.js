@@ -44,6 +44,7 @@ const registerUser = async(req,res)=>{
 
 }
 
+
 const loginUser = passport.authenticate('local',{
     successRedirect: '/users/dashboard',
     failureRedirect: '/users/login',
@@ -53,6 +54,9 @@ const loginUser = passport.authenticate('local',{
 
 
 });
+
+
+
 
 module.exports = {registerUser,loginUser};
 

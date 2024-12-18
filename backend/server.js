@@ -26,6 +26,14 @@ const session = require('express-session')
 
 const PORT = process.env.PORT || 4000;
 
+//Cross origin  resource sharing
+app.use(cors ({
+    origin: 'http://localhost:5173',  //React URL
+    credentials: true,
+
+}));
+
+
 //view engine: Usado para renderizar paginas HTML dinámicas
 //EJS: Embedded js, template engine. Permite insertar codigo js dentro de html 
 app.set('view engine','ejs');
@@ -34,12 +42,8 @@ app.set('view engine','ejs');
 // extended: false  simple key-values 
 app.use(express.urlencoded({extended: false}))
 
-//Cross origin  resource sharing
-app.use(cors ({
-    origin: 'http://localhost:5173',  //React URL
-    credentials: true,
 
-}));
+
 
 
 

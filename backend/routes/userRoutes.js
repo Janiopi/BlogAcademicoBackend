@@ -41,7 +41,9 @@ router.get(
   passport.authenticate('google',{failureRedirect: '/login'}),
   (req,res)=>{
     console.log(req.user)
-    res.render('dashboard',{user:req.user.name});
+    const user = req.user;
+    res.json({message:'Login succesful',user})
+    //res.render('dashboard',{user:req.user.name});
   }
 
 );

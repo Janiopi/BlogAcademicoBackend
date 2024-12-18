@@ -1,15 +1,15 @@
 const express = require('express')
 const router = express.Router();
-const { uploadNewPDF,downloadPDF,uploadNewVideo,getVideo } = require("../controllers/resourcesController")
-const {upload} = require("../middleware/PDFMiddleware")
+const { uploadNewMedia,downloadMedia,uploadNewVideo,getVideo } = require("../controllers/resourcesController")
+const {upload} = require("../middleware/MediaMiddleware")
 
 
 //Create
-router.post('/uploadPDF',upload.single('pdf'),uploadNewPDF)
+router.post('/uploadMedia',upload.single('Media'),uploadNewMedia)
 router.post('/uploadVideo',uploadNewVideo)
 
 //Read
-router.get('/downloadPDF',downloadPDF)
+router.get('/downloadMedia',downloadMedia)
 router.get('/getVideo',getVideo)
 
 

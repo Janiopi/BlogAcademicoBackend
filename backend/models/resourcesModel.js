@@ -4,8 +4,8 @@
 
 
  //Create
- const uploadPDF = async ({courseId,filePath,title})=>{
-    type = 'pdf'
+ const uploadMedia = async ({courseId,filePath,title})=>{
+    type = 'media'
     const result = await pool.query(
         'INSERT INTO resources (course_id,url,type,title) VALUES ($1,$2,$3,$4) RETURNING *',
         [courseId,filePath,type,title]
@@ -25,9 +25,8 @@
     return result.rows[0];
  }
 
-
  //Read
- const retrievePDF = async({id}) =>{
+ const retrieveMedia = async({id}) =>{
     const result = await pool.query(
         'SELECT url FROM resources WHERE id = $1',
         [id]
@@ -47,4 +46,4 @@ const retrieveVideo = async({id})=>{
     return result.rows[0];
  }
 
- module.exports = {uploadPDF,retrievePDF,uploadVideo,retrieveVideo}
+ module.exports = {uploadMedia,retrieveMedia,uploadVideo,retrieveVideo}

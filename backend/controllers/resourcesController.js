@@ -1,8 +1,11 @@
 
-const {uploadPDF,retrievePDF,uploadVideo,retrieveVideo} = require('../models/resourcesModel.js')
+const {uploadMedia,retrieveMedia,uploadVideo,retrieveVideo} = require('../models/resourcesModel.js')
 
 
-const uploadNewPDF = async(req,res)=>{
+
+
+
+const uploadNewMedia = async(req,res)=>{
     try{
         const{ courseId,title} = req.body;
         const filePath = req.file?.path
@@ -11,7 +14,7 @@ const uploadNewPDF = async(req,res)=>{
         }
         console.log('Req Body:',req.body)
         console.log('Uploaded Files:', req.file); // For uploaded file(s)
-        const result = await uploadPDF({courseId,filePath,title})
+        const result = await uploadMedia({courseId,filePath,title})
         res.status(201).json(result);
     }catch(err){
         console.log("Error :(")
@@ -20,7 +23,7 @@ const uploadNewPDF = async(req,res)=>{
     }
 }
 
-const downloadPDF = async(req,res)=>{
+const downloadMedia = async(req,res)=>{
     try{
         console.log('Req body:',req.body)
         const{id}=req.body;
@@ -28,7 +31,7 @@ const downloadPDF = async(req,res)=>{
         if(!id){
             return res.status(400).json({error:'Missing required fields'});
         }
-        const result = await retrievePDF({id})
+        const result = await retrieveMedia({id})
         console.log(result.url)
         console.log('Descargando...')
         res.download(result.url)
@@ -39,10 +42,12 @@ const downloadPDF = async(req,res)=>{
     }   
 }
 
+
+
 function extractYouTubeID(url) {
     const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     const match = url.match(regex);
-    return match ? match[1] : null; // Return the ID if matched, otherwise null
+    return match ? match[1] : null; // Retorna el id en caso encuentre un match
 }
 
 
@@ -91,6 +96,6 @@ const getVideo = async(req,res)=>{
 }
 
 
-module.exports = {uploadNewPDF,downloadPDF,uploadNewVideo,getVideo}
+module.exports = {uploadNewMedia,downloadMedia,uploadNewVideo,getVideo}
 
 

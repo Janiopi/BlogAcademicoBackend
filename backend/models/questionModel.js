@@ -1,13 +1,15 @@
 // Los modelos son responsables de interactuar con la DB
 
 const {pool} = require('../config/dbConfig.js')
+const {createSlug} = require('../utils/slug.js')
 
 //Create
 
 const newQuestion = async ({ user_id, title, description, tags }) => {
+  slug = createSlug(title)
   const result = await pool.query(
-    'INSERT INTO questions (user_id, title, description, tags) VALUES ($1, $2, $3, $4) RETURNING *',
-    [user_id, title, description, tags]
+    'INSERT INTO questions (user_id, title, description, tags,slug) VALUES ($1, $2, $3, $4,$5) RETURNING *',
+    [user_id, title, description, tags,slug]
   );
   return result.rows[0]; 
 };
@@ -31,9 +33,10 @@ const findQuestionById= async(id)=>{
 //Update
 
 const updateQuestionTitle = async ({id,new_title})=>{
-    const result = await pool.query(
-      'UPDATE questions SET title = $2 WHERE id=$1',
-      [id,new_title]
+  slug = createSlug(new_title) 
+  const result = await pool.query(
+      'UPDATE questions SET title = $2,slug=$3 WHERE id=$1',
+      [id,new_title,slug]
     )
     return result.rows[0]; 
 };

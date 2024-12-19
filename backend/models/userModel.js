@@ -23,10 +23,11 @@ const createUser = async(name,email,hashedPassword)=>{
 
 const changePassword = async(email,newpassword)=>{
     const result = await pool.query(
-        'UPDATE users SET password=$2 where (email=$1 AND provider=$3',
-        [email,newpassword,'local']
+        'UPDATE users SET password=$2 where email=$1 ',
+        [email,newpassword]
     )
-    return result.rows[0]
+    return result.rows[0];
+
 }
 
 

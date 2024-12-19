@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport')
-const {registerUser,loginUser} = require('../controllers/userController.js')
+const {registerUser,loginUser, changeUserPassword} = require('../controllers/userController.js')
 const {checkAuthenticated,checkNotAuthenticated} = require('../middleware/authMiddleware.js')
 
 
@@ -10,6 +10,8 @@ router.post('/register',registerUser)
 
 router.get('/login',checkNotAuthenticated,(req,res)=>res.render('login'));
 router.post('/login',loginUser);
+
+router.post('/changePassword',checkAuthenticated,changeUserPassword);
 
 router.get('/dashboard', checkAuthenticated, (req, res) => {
   
@@ -29,9 +31,6 @@ router.get('/logout',(req,res,next)=>{
 
 })
 
-router.get('/changePassword',checkAuthenticated,(req,res)=>{
-    res.render("changePassword");
-})
 
 
 router.get('/authGoogle',passport.authenticate('google',{scope:['profile','email']}));

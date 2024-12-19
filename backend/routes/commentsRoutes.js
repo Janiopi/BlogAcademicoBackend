@@ -5,16 +5,16 @@ const {createNewComment,showCommentById,updateContentComment,deleteCommentt} = r
 const {checkAuthenticated,checkNotAuthenticated} = require('../middleware/authMiddleware.js') 
 
 //Create
-router.post('/new',createNewComment)
+router.post('/new',checkAuthenticated,createNewComment)
 
 //Read
 router.get('/:id',showCommentById)
 
 //Update
-router.put('/updateContent',updateContentComment)
+router.put('/updateContent',checkAuthenticated,updateContentComment)
 
 //Delete
-router.delete('/delete',deleteCommentt)
+router.delete('/delete',checkAuthenticated,deleteCommentt)
 
 
 

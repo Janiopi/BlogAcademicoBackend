@@ -16,7 +16,9 @@ const createNewQuestion = async(req,res)=>{
             return res.status(400).json({ error: 'Missing required fields' });
          }
 
-        const result = await newQuestion({ user_id, title, description, tags });
+        
+
+        const result = await newQuestion({ user_id, title, description, tags});
         res.status(201).json(result);        
     }catch(err){
         console.error(err.message)

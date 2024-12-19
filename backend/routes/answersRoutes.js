@@ -5,16 +5,16 @@ const {createNewAnswer,showAnswerById,updateContentQuestion,deleteAnswerr} = req
 const {checkAuthenticated,checkNotAuthenticated} = require('../middleware/authMiddleware.js') 
 
 //Create
-router.post('/new',createNewAnswer)
+router.post('/new',checkAuthenticated,createNewAnswer)
 
 //Read
 router.get('/:id',showAnswerById)
 
 //Update
-router.put('/updateContent',updateContentQuestion)
+router.put('/updateContent',checkAuthenticated,updateContentQuestion)
 
 //Delete
-router.delete('/delete',deleteAnswerr)
+router.delete('/delete',checkAuthenticated,deleteAnswerr)
 
 
 

@@ -8,10 +8,10 @@ const {checkAuthenticated,checkNotAuthenticated} = require('../middleware/authMi
 router.post('/new',createNewQuestion)
 //Read
 router.get('/all',showAllQuestions)
-router.get('/:id',questionById)
+router.get('/:id/:slug',questionById)
 //Update
 router.put('/updateTitle',updateTitleQuestion)
-router.put('/updateDesc',updateDescQuestion)
+router.put('/updateDesc',updateDescQuestion)    
 router.put('/updateTags',updateTagsQuestion)
 //Delete
 router.delete('/delete',deleteQuestionn)

@@ -14,7 +14,7 @@ const answersRoutes = require('./routes/answersRoutes.js')
 const commentsRoutes = require('./routes/commentsRoutes.js')
 const courseRoutes = require('./routes/courseRoutes.js')
 const resourcesRoutes = require('./routes/resourcesRoutes.js')
-
+const contactRoutes = require('./routes/contactRoutes.js')
 
 //Set up de passport
 
@@ -93,6 +93,9 @@ app.use('/courses',courseRoutes)
 
 //Resource routes
 app.use('/resources',resourcesRoutes);
+
+//Contact routes
+app.use('/contact',contactRoutes)
 
 app.get('/',(req,res)=>{
     res.render("index");

@@ -96,6 +96,45 @@ ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 
 --
+-- Name: courses; Type: TABLE; Schema: public; Owner: janio
+--
+
+CREATE TABLE public.courses (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    teacher character varying(255) NOT NULL,
+    tags jsonb,
+    description text,
+    created_at timestamp without time zone DEFAULT now(),
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.courses OWNER TO janio;
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE; Schema: public; Owner: janio
+--
+
+CREATE SEQUENCE public.courses_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.courses_id_seq OWNER TO janio;
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janio
+--
+
+ALTER SEQUENCE public.courses_id_seq OWNED BY public.courses.id;
+
+
+--
 -- Name: questions; Type: TABLE; Schema: public; Owner: janio
 --
 
@@ -106,7 +145,8 @@ CREATE TABLE public.questions (
     description text NOT NULL,
     tags text[],
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    slug text
 );
 
 
@@ -135,6 +175,45 @@ ALTER SEQUENCE public.questions_id_seq OWNED BY public.questions.id;
 
 
 --
+-- Name: resources; Type: TABLE; Schema: public; Owner: janio
+--
+
+CREATE TABLE public.resources (
+    id integer NOT NULL,
+    course_id integer NOT NULL,
+    type character varying(50) NOT NULL,
+    url text NOT NULL,
+    title character varying(255),
+    uploaded_by character varying(255),
+    created_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.resources OWNER TO janio;
+
+--
+-- Name: resources_id_seq; Type: SEQUENCE; Schema: public; Owner: janio
+--
+
+CREATE SEQUENCE public.resources_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.resources_id_seq OWNER TO janio;
+
+--
+-- Name: resources_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janio
+--
+
+ALTER SEQUENCE public.resources_id_seq OWNED BY public.resources.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: janio
 --
 
@@ -142,7 +221,9 @@ CREATE TABLE public.users (
     id bigint NOT NULL,
     name character varying(200) NOT NULL,
     email character varying(200) NOT NULL,
-    password character varying(200) NOT NULL
+    password character varying(200),
+    google_id character varying,
+    provider character varying DEFAULT 'local'::character varying
 );
 
 
@@ -221,10 +302,24 @@ ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.com
 
 
 --
+-- Name: courses id; Type: DEFAULT; Schema: public; Owner: janio
+--
+
+ALTER TABLE ONLY public.courses ALTER COLUMN id SET DEFAULT nextval('public.courses_id_seq'::regclass);
+
+
+--
 -- Name: questions id; Type: DEFAULT; Schema: public; Owner: janio
 --
 
 ALTER TABLE ONLY public.questions ALTER COLUMN id SET DEFAULT nextval('public.questions_id_seq'::regclass);
+
+
+--
+-- Name: resources id; Type: DEFAULT; Schema: public; Owner: janio
+--
+
+ALTER TABLE ONLY public.resources ALTER COLUMN id SET DEFAULT nextval('public.resources_id_seq'::regclass);
 
 
 --
@@ -239,81 +334,6 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 ALTER TABLE ONLY public.votes ALTER COLUMN id SET DEFAULT nextval('public.votes_id_seq'::regclass);
-
-
---
--- Data for Name: answers; Type: TABLE DATA; Schema: public; Owner: janio
---
-
-COPY public.answers (id, question_id, user_id, content, created_at, updated_at) FROM stdin;
-\.
-
-
---
--- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: janio
---
-
-COPY public.comments (id, answer_id, user_id, content, created_at) FROM stdin;
-\.
-
-
---
--- Data for Name: questions; Type: TABLE DATA; Schema: public; Owner: janio
---
-
-COPY public.questions (id, user_id, title, description, tags, created_at, updated_at) FROM stdin;
-\.
-
-
---
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: janio
---
-
-COPY public.users (id, name, email, password) FROM stdin;
-\.
-
-
---
--- Data for Name: votes; Type: TABLE DATA; Schema: public; Owner: janio
---
-
-COPY public.votes (id, user_id, question_id, answer_id, vote_type) FROM stdin;
-\.
-
-
---
--- Name: answers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: janio
---
-
-SELECT pg_catalog.setval('public.answers_id_seq', 5, true);
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: janio
---
-
-SELECT pg_catalog.setval('public.comments_id_seq', 2, true);
-
-
---
--- Name: questions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: janio
---
-
-SELECT pg_catalog.setval('public.questions_id_seq', 11, true);
-
-
---
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: janio
---
-
-SELECT pg_catalog.setval('public.users_id_seq', 13, true);
-
-
---
--- Name: votes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: janio
---
-
-SELECT pg_catalog.setval('public.votes_id_seq', 1, false);
 
 
 --
@@ -333,11 +353,27 @@ ALTER TABLE ONLY public.comments
 
 
 --
+-- Name: courses courses_pkey; Type: CONSTRAINT; Schema: public; Owner: janio
+--
+
+ALTER TABLE ONLY public.courses
+    ADD CONSTRAINT courses_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: questions questions_pkey; Type: CONSTRAINT; Schema: public; Owner: janio
 --
 
 ALTER TABLE ONLY public.questions
     ADD CONSTRAINT questions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: resources resources_pkey; Type: CONSTRAINT; Schema: public; Owner: janio
+--
+
+ALTER TABLE ONLY public.resources
+    ADD CONSTRAINT resources_pkey PRIMARY KEY (id);
 
 
 --
@@ -410,6 +446,14 @@ ALTER TABLE ONLY public.comments
 
 ALTER TABLE ONLY public.questions
     ADD CONSTRAINT questions_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: resources resources_course_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janio
+--
+
+ALTER TABLE ONLY public.resources
+    ADD CONSTRAINT resources_course_id_fkey FOREIGN KEY (course_id) REFERENCES public.courses(id) ON DELETE CASCADE;
 
 
 --

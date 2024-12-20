@@ -3,11 +3,14 @@
 ## **Estructura del Proyecto**
 
 ```
-.
+
 ├───config
 │       dbConfig.js              # Configuración de la conexión a la BD
-│       passportConfig.js        # Configuración de passport(utilizado para la autenticación)
-│
+│       passport        # Configuración de passport(utilizado para la autenticación)
+│			localStrategy.js
+|       	googleStrategy.js		
+|			passportConfig.js
+|
 ├───controllers
 │       userController.js         # Los controladores se encargan de manejar las solicitudes HTTP
 │       questionController.js        
@@ -15,7 +18,7 @@
 |
 │───middleware
 │        authMiddleware.js   # Funciones para verificar si un usuario se encuentra o no autenticado
-|        
+|        MediaMiddleware.js  # Configuracion de Multer 
 ├───models
 │       userModel.js        # Los models interactuan directamente con la BD mediante querys
 │       questionModel.js             
@@ -23,7 +26,13 @@
 |───routes
 |        userRoutes.js	     # Rutas/endpoints del backend
 |        questionRoutes.js 
-|           
+|
+|───utils
+|		emailRecovery.js    # Envia correo con el token generado
+|		extractYoutubeId.js #Mediante regex extrae el id de un url de youtube
+|		generateResetToken.js #Si el correo se encuentra en la bd, genera un token para recuperar contra
+|		slug.js             #Formatea latex en texto "vanilla"
+|		
 └─── server.js              # Main file     
 ```
 
@@ -38,19 +47,25 @@
 ```bash
 	cd backend
 ```
-- *Inicializar el servidor(Se ejecutará en el puerto 4000)
-```bash
-	npm run dev 
-```
-   
 - *En caso de no tener npm instalado*
 ```bash
 	sudo apt install npm
 ```
--  *Instalar algunas librerías* 
+-  *Instalar las dependencias* 
 ```bash 
-	npm install express passport cors bcrypt
+	npm install 
 ```
+- *Inicializar el servidor(Se ejecutará en el puerto 4000)
+(Dev mode)
+```bash
+	npm run dev 
+```
+- (Production mode)
+```bash
+	npm run start 
+```
+   
+
 
 ## Conceptos clave ##
 - *API*
@@ -81,7 +96,9 @@
 		
 	- Serializar y Deserializar: Passport necesita funciones para serializar (guardar) y deserializar (recuperar) al usuario en una sesión.
 
-- **CORS**: Cross-Origin Resource Sharing. Es un mecanismo de seguridad que permite a los navegadores web controlar las solicitudes HTTP que se realizan desde JavaScript, y que provienen de un origen distinto al del servidor.    
+- **CORS**: Cross-Origin Resource Sharing. Es un mecanismo de seguridad que permite a los navegadores web controlar las solicitudes HTTP que se realizan desde JavaScript, y que provienen de un origen distinto al del servidor. 
+
+
 	
 ![2.png](Screenshots/2.png)
 
@@ -102,20 +119,21 @@
 
 ![5.png](Screenshots/5.png)
 
+- **Multer**: Multer agrega un body object y un file object al object request. El body object contiene los valores de los campos de texto del formulario, el file object contiene los archivos cargados a través del formulario.
+
+- **Nodemailer**: Nodemailer es un módulo para aplicaciones Node.js que permite enviar correos electrónicos fácilmente. El proyecto comenzó en 2010 cuando había pocas opciones confiables para enviar mensajes de correo electrónico y hoy es la solución predeterminada para la mayoría de los usuarios de Node.js.
 
 
 - **PostgreSQL**:   Ideal para sistemas que requieren integridad de datos y consultas complejas, como en la búsqueda y filtrado de cursos. Su soporte para tipos de datos avanzados, índices y funciones SQL enriquecidas permite gestionar datos con eficiencia.
     - Soporte para relaciones complejas: En un proyecto con varias entidades relacionadas (usuarios, cursos, comentarios), PostgreSQL facilita las relaciones entre tablas mediante claves foráneas, ofreciendo integridad referencial.
    
 
-- **EJS** (Embedded JavaScript): Motor de plantillas para Node.js que permite insertar JavaScript en archivos HTML. Con EJS, puedes generar páginas HTML dinámicas de manera sencilla usando variables y estructuras de control de JavaScript en el servidor.
 
-![6.png](Screenshots/6.png)
 
 ## Funcionamiento ##
 
 # Login/Register #
-Sistema básico de registro,logeo. Cuando un usuario se registra correctamente, hashea su contraseña y lo almacena en la base de datos. (Verificación local). Se planea implementar una opción para iniciar sesión mediante cuenta de un servicio tercero como Google.
+Sistema básico de registro,logeo. Cuando un usuario se registra correctamente, hashea su contraseña y lo almacena en la base de datos. (Verificación local). 
 
 ![Registro.png](Screenshots/Registro.png)
 
@@ -125,13 +143,33 @@ Sistema básico de registro,logeo. Cuando un usuario se registra correctamente, 
 ![alt text](Screenshots/image-1.png)
 
 
+En cuanto a la autenticación mediante Google(google-oauth20), esta nos dirige a la pagina de logeo de Google.
+
+# Recuperar contraseña
+En caso que un email se encuentre registrado en la DB, será posible enviar un email con un enlace de recuperación. 
+- Se verifica que el correo exista
+- Se genera un token de recuperacion (este expira luego de 1 hora)
+- Se envia un correo con la ruta de recuperacion users/resetPassword/:token utilizando nodemailer
+
+![alt text](Screenshots/ForgotPassword.png)
+
+![alt text](Screenshots/resetPassword.png)
+
+
+
 
 # Cursos #
-El usuario podrá navegar por todo un catálogo de cursos con sus respectivos cursos (Falta implementar, todavía no definimos exactamente que datos debe contener la tabla cursos)
+El usuario podrá navegar por todo un catálogo de cursos con sus respectivos cursos. También se podrá aplicar filtros.
 
 
 # Preguntas #
-El usuario podrá acceder a un foro donde podrá realizar preguntas, responder preguntas e incluso calificar respuestas (Similar a StackOverflow)
+El usuario podrá acceder a un foro(una vez logeado) donde podrá realizar preguntas y responder preguntas (Similar a StackOverflow)
+
+El titulo y contenido de las preguntas pueden estar en formato latex
+
+La ruta de una pregunta /questions/:id/:title
+
+En caso que el title contenga caracteres "especiales" se formateare, utilizando utils/slug
 
 Se realizan operaciones CRUD
 Create
@@ -161,8 +199,21 @@ Update
 Delete
 ![alt text](Screenshots/image-5.png)
 
-Cuando se elimina una pregunta, también se eliminan las respuestas	
+Cuando se elimina una pregunta, también se eliminan las respuestas(drop in cascade)
 ![alt text](Screenshots/image-6.png)
+
+# MultiMedia
+Como se menciono anteriormente, se utilizará multer para poder agregar documentos en los body request.
+
+Subiendo documentos. Los documentos como tal no se almacenan en la DB sino las rutas a los directorios que lo contengan. En el caso de nuestra implementación se almacenan en /uploads/
+![alt text](Screenshots/PostDoc.png)
+Descargando documentos
+![alt text](Screenshots/GetMedia.png)
+Subiendo video. Se extrae el Id mediante regex y se almacena en la DB.
+![alt text](Screenshots/PostVideo.png)
+Obteniendo video
+![alt text](Screenshots/GetVideo.png)
+
 
 
 

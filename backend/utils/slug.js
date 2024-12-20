@@ -9,3 +9,4 @@ function createSlug(title) {
 }
 
 module.exports = {createSlug};
+

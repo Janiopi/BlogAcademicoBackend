@@ -45,8 +45,6 @@ app.use(express.urlencoded({extended: false}))
 
 
 
-
-
 //Middleware para administrar sesiones
 app.use(session({
     secret: 'secret', //Sign the session ID cookie

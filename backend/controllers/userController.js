@@ -58,7 +58,7 @@ const registerUser = async (req, res) => {
 
 
 
-const loginUser = (req, res, next) => {
+const   loginUser = (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             console.error('Authentication error:', err);

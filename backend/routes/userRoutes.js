@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport')
 const {registerUser,loginUser, changeUserPassword} = require('../controllers/userController.js')
 const {checkAuthenticated,checkNotAuthenticated} = require('../middleware/authMiddleware.js')
+const {forgotPassword,recoverPassword} = require('../controllers/recoverPasswordController.js')
 
 
 router.get('/register',checkNotAuthenticated,(req,res)=>res.render('register'));
@@ -46,6 +47,10 @@ router.get(
   }
 
 );
+
+router.post('/forgotPassword',forgotPassword)
+router.post('/resetPassword/:token',recoverPassword)
+
 
 
 module.exports = router;

@@ -21,7 +21,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: answers; Type: TABLE; Schema: public; Owner: janio
+-- Name: answers; Type: TABLE; Schema: public; Owner: janiopi
 --
 
 CREATE TABLE public.answers (
@@ -34,10 +34,10 @@ CREATE TABLE public.answers (
 );
 
 
-ALTER TABLE public.answers OWNER TO janio;
+ALTER TABLE public.answers OWNER TO janiopi;
 
 --
--- Name: answers_id_seq; Type: SEQUENCE; Schema: public; Owner: janio
+-- Name: answers_id_seq; Type: SEQUENCE; Schema: public; Owner: janiopi
 --
 
 CREATE SEQUENCE public.answers_id_seq
@@ -49,17 +49,17 @@ CREATE SEQUENCE public.answers_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.answers_id_seq OWNER TO janio;
+ALTER TABLE public.answers_id_seq OWNER TO janiopi;
 
 --
--- Name: answers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janio
+-- Name: answers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janiopi
 --
 
 ALTER SEQUENCE public.answers_id_seq OWNED BY public.answers.id;
 
 
 --
--- Name: comments; Type: TABLE; Schema: public; Owner: janio
+-- Name: comments; Type: TABLE; Schema: public; Owner: janiopi
 --
 
 CREATE TABLE public.comments (
@@ -71,10 +71,10 @@ CREATE TABLE public.comments (
 );
 
 
-ALTER TABLE public.comments OWNER TO janio;
+ALTER TABLE public.comments OWNER TO janiopi;
 
 --
--- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: janio
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: janiopi
 --
 
 CREATE SEQUENCE public.comments_id_seq
@@ -86,17 +86,17 @@ CREATE SEQUENCE public.comments_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.comments_id_seq OWNER TO janio;
+ALTER TABLE public.comments_id_seq OWNER TO janiopi;
 
 --
--- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janio
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janiopi
 --
 
 ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 
 --
--- Name: courses; Type: TABLE; Schema: public; Owner: janio
+-- Name: courses; Type: TABLE; Schema: public; Owner: janiopi
 --
 
 CREATE TABLE public.courses (
@@ -110,10 +110,10 @@ CREATE TABLE public.courses (
 );
 
 
-ALTER TABLE public.courses OWNER TO janio;
+ALTER TABLE public.courses OWNER TO janiopi;
 
 --
--- Name: courses_id_seq; Type: SEQUENCE; Schema: public; Owner: janio
+-- Name: courses_id_seq; Type: SEQUENCE; Schema: public; Owner: janiopi
 --
 
 CREATE SEQUENCE public.courses_id_seq
@@ -125,17 +125,17 @@ CREATE SEQUENCE public.courses_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.courses_id_seq OWNER TO janio;
+ALTER TABLE public.courses_id_seq OWNER TO janiopi;
 
 --
--- Name: courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janio
+-- Name: courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janiopi
 --
 
 ALTER SEQUENCE public.courses_id_seq OWNED BY public.courses.id;
 
 
 --
--- Name: questions; Type: TABLE; Schema: public; Owner: janio
+-- Name: questions; Type: TABLE; Schema: public; Owner: janiopi
 --
 
 CREATE TABLE public.questions (
@@ -150,10 +150,10 @@ CREATE TABLE public.questions (
 );
 
 
-ALTER TABLE public.questions OWNER TO janio;
+ALTER TABLE public.questions OWNER TO janiopi;
 
 --
--- Name: questions_id_seq; Type: SEQUENCE; Schema: public; Owner: janio
+-- Name: questions_id_seq; Type: SEQUENCE; Schema: public; Owner: janiopi
 --
 
 CREATE SEQUENCE public.questions_id_seq
@@ -165,17 +165,17 @@ CREATE SEQUENCE public.questions_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.questions_id_seq OWNER TO janio;
+ALTER TABLE public.questions_id_seq OWNER TO janiopi;
 
 --
--- Name: questions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janio
+-- Name: questions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janiopi
 --
 
 ALTER SEQUENCE public.questions_id_seq OWNED BY public.questions.id;
 
 
 --
--- Name: resources; Type: TABLE; Schema: public; Owner: janio
+-- Name: resources; Type: TABLE; Schema: public; Owner: janiopi
 --
 
 CREATE TABLE public.resources (
@@ -189,10 +189,10 @@ CREATE TABLE public.resources (
 );
 
 
-ALTER TABLE public.resources OWNER TO janio;
+ALTER TABLE public.resources OWNER TO janiopi;
 
 --
--- Name: resources_id_seq; Type: SEQUENCE; Schema: public; Owner: janio
+-- Name: resources_id_seq; Type: SEQUENCE; Schema: public; Owner: janiopi
 --
 
 CREATE SEQUENCE public.resources_id_seq
@@ -204,17 +204,17 @@ CREATE SEQUENCE public.resources_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.resources_id_seq OWNER TO janio;
+ALTER TABLE public.resources_id_seq OWNER TO janiopi;
 
 --
--- Name: resources_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janio
+-- Name: resources_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janiopi
 --
 
 ALTER SEQUENCE public.resources_id_seq OWNED BY public.resources.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: janio
+-- Name: users; Type: TABLE; Schema: public; Owner: janiopi
 --
 
 CREATE TABLE public.users (
@@ -227,10 +227,10 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO janio;
+ALTER TABLE public.users OWNER TO janiopi;
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: janio
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: janiopi
 --
 
 CREATE SEQUENCE public.users_id_seq
@@ -241,17 +241,17 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_id_seq OWNER TO janio;
+ALTER TABLE public.users_id_seq OWNER TO janiopi;
 
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janio
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janiopi
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: votes; Type: TABLE; Schema: public; Owner: janio
+-- Name: votes; Type: TABLE; Schema: public; Owner: janiopi
 --
 
 CREATE TABLE public.votes (
@@ -263,10 +263,10 @@ CREATE TABLE public.votes (
 );
 
 
-ALTER TABLE public.votes OWNER TO janio;
+ALTER TABLE public.votes OWNER TO janiopi;
 
 --
--- Name: votes_id_seq; Type: SEQUENCE; Schema: public; Owner: janio
+-- Name: votes_id_seq; Type: SEQUENCE; Schema: public; Owner: janiopi
 --
 
 CREATE SEQUENCE public.votes_id_seq
@@ -278,66 +278,66 @@ CREATE SEQUENCE public.votes_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.votes_id_seq OWNER TO janio;
+ALTER TABLE public.votes_id_seq OWNER TO janiopi;
 
 --
--- Name: votes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janio
+-- Name: votes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: janiopi
 --
 
 ALTER SEQUENCE public.votes_id_seq OWNED BY public.votes.id;
 
 
 --
--- Name: answers id; Type: DEFAULT; Schema: public; Owner: janio
+-- Name: answers id; Type: DEFAULT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.answers ALTER COLUMN id SET DEFAULT nextval('public.answers_id_seq'::regclass);
 
 
 --
--- Name: comments id; Type: DEFAULT; Schema: public; Owner: janio
+-- Name: comments id; Type: DEFAULT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
 
 
 --
--- Name: courses id; Type: DEFAULT; Schema: public; Owner: janio
+-- Name: courses id; Type: DEFAULT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.courses ALTER COLUMN id SET DEFAULT nextval('public.courses_id_seq'::regclass);
 
 
 --
--- Name: questions id; Type: DEFAULT; Schema: public; Owner: janio
+-- Name: questions id; Type: DEFAULT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.questions ALTER COLUMN id SET DEFAULT nextval('public.questions_id_seq'::regclass);
 
 
 --
--- Name: resources id; Type: DEFAULT; Schema: public; Owner: janio
+-- Name: resources id; Type: DEFAULT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.resources ALTER COLUMN id SET DEFAULT nextval('public.resources_id_seq'::regclass);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: janio
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Name: votes id; Type: DEFAULT; Schema: public; Owner: janio
+-- Name: votes id; Type: DEFAULT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.votes ALTER COLUMN id SET DEFAULT nextval('public.votes_id_seq'::regclass);
 
 
 --
--- Name: answers answers_pkey; Type: CONSTRAINT; Schema: public; Owner: janio
+-- Name: answers answers_pkey; Type: CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.answers
@@ -345,7 +345,7 @@ ALTER TABLE ONLY public.answers
 
 
 --
--- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: janio
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.comments
@@ -353,7 +353,7 @@ ALTER TABLE ONLY public.comments
 
 
 --
--- Name: courses courses_pkey; Type: CONSTRAINT; Schema: public; Owner: janio
+-- Name: courses courses_pkey; Type: CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.courses
@@ -361,7 +361,7 @@ ALTER TABLE ONLY public.courses
 
 
 --
--- Name: questions questions_pkey; Type: CONSTRAINT; Schema: public; Owner: janio
+-- Name: questions questions_pkey; Type: CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.questions
@@ -369,7 +369,7 @@ ALTER TABLE ONLY public.questions
 
 
 --
--- Name: resources resources_pkey; Type: CONSTRAINT; Schema: public; Owner: janio
+-- Name: resources resources_pkey; Type: CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.resources
@@ -377,7 +377,7 @@ ALTER TABLE ONLY public.resources
 
 
 --
--- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: janio
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.users
@@ -385,7 +385,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: janio
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.users
@@ -393,7 +393,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: votes votes_pkey; Type: CONSTRAINT; Schema: public; Owner: janio
+-- Name: votes votes_pkey; Type: CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.votes
@@ -401,7 +401,7 @@ ALTER TABLE ONLY public.votes
 
 
 --
--- Name: votes votes_user_id_question_id_answer_id_key; Type: CONSTRAINT; Schema: public; Owner: janio
+-- Name: votes votes_user_id_question_id_answer_id_key; Type: CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.votes
@@ -409,7 +409,7 @@ ALTER TABLE ONLY public.votes
 
 
 --
--- Name: answers answers_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janio
+-- Name: answers answers_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.answers
@@ -417,7 +417,7 @@ ALTER TABLE ONLY public.answers
 
 
 --
--- Name: answers answers_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janio
+-- Name: answers answers_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.answers
@@ -425,7 +425,7 @@ ALTER TABLE ONLY public.answers
 
 
 --
--- Name: comments comments_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janio
+-- Name: comments comments_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.comments
@@ -433,7 +433,7 @@ ALTER TABLE ONLY public.comments
 
 
 --
--- Name: comments comments_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janio
+-- Name: comments comments_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.comments
@@ -441,7 +441,7 @@ ALTER TABLE ONLY public.comments
 
 
 --
--- Name: questions questions_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janio
+-- Name: questions questions_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.questions
@@ -449,7 +449,7 @@ ALTER TABLE ONLY public.questions
 
 
 --
--- Name: resources resources_course_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janio
+-- Name: resources resources_course_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.resources
@@ -457,7 +457,7 @@ ALTER TABLE ONLY public.resources
 
 
 --
--- Name: votes votes_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janio
+-- Name: votes votes_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.votes
@@ -465,7 +465,7 @@ ALTER TABLE ONLY public.votes
 
 
 --
--- Name: votes votes_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janio
+-- Name: votes votes_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.votes
@@ -473,7 +473,7 @@ ALTER TABLE ONLY public.votes
 
 
 --
--- Name: votes votes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janio
+-- Name: votes votes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: janiopi
 --
 
 ALTER TABLE ONLY public.votes
@@ -481,7 +481,7 @@ ALTER TABLE ONLY public.votes
 
 
 --
--- Name: TABLE users; Type: ACL; Schema: public; Owner: janio
+-- Name: TABLE users; Type: ACL; Schema: public; Owner: janiopi
 --
 
 GRANT ALL ON TABLE public.users TO janiopi;

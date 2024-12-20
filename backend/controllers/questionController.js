@@ -3,8 +3,6 @@
 
 const { allQuestions, findQuestionById, newQuestion,updateQuestionTitle,updateQuestionDesc,updateQuestionTags, deleteQuestion} = require('../models/questionModel.js');
 const {findAnswersById} = require('../models/answersModel.js')
-const {vote} = require('../models/votesModel.js')
-
 //Create
 
 const createNewQuestion = async(req,res)=>{

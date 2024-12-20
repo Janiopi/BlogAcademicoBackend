@@ -10,6 +10,7 @@
         'INSERT INTO resources (course_id,url,type,title) VALUES ($1,$2,$3,$4) RETURNING *',
         [courseId,filePath,type,title]
     );
+    console.log('Se guardo la ruta en la BD')
     return result.rows[0];
 
  }

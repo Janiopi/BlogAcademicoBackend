@@ -6,13 +6,13 @@ const { newContact,findContactAll,findContactById  }
 //Create
 const createNewContact = async(req,res)=>{
     try{
-        const{email,asunto,mensaje} = req.body;
+        const{email,topic,message} = req.body;
         console.log(req.body)
-        if( !email||!mensaje){
+        if( !email||!message){
             return res.status(400).json({error: 'Missing fields'});
 
         }
-        const result = await newContact({email,asunto,mensaje})
+        const result = await newContact({email,topic,message})
         res.status(201).json(result)
     }catch(err){
         console.error(err.message)

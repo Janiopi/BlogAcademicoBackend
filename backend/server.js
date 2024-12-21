@@ -15,7 +15,7 @@ const commentsRoutes = require('./routes/commentsRoutes.js')
 const courseRoutes = require('./routes/courseRoutes.js')
 const resourcesRoutes = require('./routes/resourcesRoutes.js')
 const contactRoutes = require('./routes/contactRoutes.js')
-
+const apiRoutes = require('./routes/apiRoutes.js')
 //Set up de passport
 
 
@@ -95,13 +95,12 @@ app.use('/resources',resourcesRoutes);
 //Contact routes
 app.use('/contact',contactRoutes)
 
+//Get all the routes u.u
+app.use('/api', apiRoutes)
+
 app.get('/',(req,res)=>{
     res.render("index");
 })
-
-
-
-
 
 app.listen(PORT,()=>{
     console.log(`Server running on port ${PORT}`)

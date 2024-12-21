@@ -3,10 +3,10 @@
  const {pool} = require('../config/dbConfig.js') 
 
  //Create
-const newContact = async({email,asunto,mensaje})=>{
+const newContact = async({email,topic,message})=>{
     const result = await pool.query(
-        'INSERT INTO contact (email,asunto,mensaje) VALUES ($1,$2,$3) RETURNING *',
-        [email,asunto,mensaje]
+        'INSERT INTO contact (email,topic,message) VALUES ($1,$2,$3) RETURNING *',
+        [email,topic,message]
 
     );
     return result.rows[0]

@@ -5,6 +5,7 @@ const {findUserByEmail, createUser,changePassword}= require('../models/userModel
 const passport = require('passport');
 const pool = require('../config/dbConfig.js').pool;
 const validator = require('validator');
+const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
     try {
@@ -77,7 +78,9 @@ const   loginUser = (req, res, next) => {
 
             // On success
             console.log('Logeo satisfactorio')
+            const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' }); // Create token
             return res.json({
+                token,
                 message: 'Login successful!',
                 user: { id: user.id, email: user.email }, 
             });
